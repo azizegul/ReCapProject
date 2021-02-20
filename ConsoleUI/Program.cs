@@ -8,12 +8,12 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.ModelYear);
-                Console.WriteLine(car.Description);
-            }
+            //CarManager carManager = new CarManager(new EfCarDal());
+            //foreach (var car in carManager.GetAll())
+            //{
+            //    Console.WriteLine(car.ModelYear);
+            //    Console.WriteLine(car.Description);
+            //}
         }
     }
 }

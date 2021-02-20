@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -7,7 +9,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class ColorManager:IColorService
+    public class ColorManager : IColorService
     {
         IColorDal colorDal;
 
@@ -16,29 +18,32 @@ namespace Business.Concrete
             this.colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
             colorDal.Add(color);
+            return new SuccessResult(Messages.CarAdded);
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
             colorDal.Delete(color);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(colorDal.GetAll(), Messages.CarListed);
         }
 
-        public Color GetById(int colorId)
+        public IDataResult<Color> GetById(int colorId)
         {
-            return colorDal.Get(c => c.Id == colorId);
+            return new SuccessDataResult<Color>(colorDal.Get(c => c.Id == colorId));
         }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
             colorDal.Update(color);
+            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }
