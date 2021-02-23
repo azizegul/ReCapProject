@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingCorners.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
@@ -21,9 +22,10 @@ namespace Business.Concrete
             this.rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rentals)
         {
-            ValidationTool.Validate(new RentalValidator(), rentals);
+            
             if (rentals.RentDate != null && rentals.ReturnDate != null)
             {
                 rentalDal.Add(rentals);

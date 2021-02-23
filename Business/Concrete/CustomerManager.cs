@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingCorners.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
@@ -21,9 +22,10 @@ namespace Business.Concrete
             this.customerDal = customerDal;
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customers)
         {
-            ValidationTool.Validate(new CustomerValidator(), customers);
+        
             customerDal.Add(customers);
             return new SuccessResult(Messages.CustomerAdded);
         }
