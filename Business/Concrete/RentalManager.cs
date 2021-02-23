@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingCorners.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +23,7 @@ namespace Business.Concrete
 
         public IResult Add(Rental rentals)
         {
+            ValidationTool.Validate(new RentalValidator(), rentals);
             if (rentals.RentDate != null && rentals.ReturnDate != null)
             {
                 rentalDal.Add(rentals);

@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingCorners.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,6 +22,7 @@ namespace Business.Concrete
 
         public IResult Add(User users)
         {
+            ValidationTool.Validate(new UserValidator(), users);
             if (users.FistName.Length > 2 && users.LastName.Length > 2 && users.Email != null)
             {
                 userDal.Add(users);
@@ -26,7 +30,7 @@ namespace Business.Concrete
             }
             else
             {
-                return new ErrorResult(Messages.NameInValid);
+                return new ErrorResult();
             }
         }
 
